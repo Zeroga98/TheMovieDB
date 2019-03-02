@@ -96,6 +96,50 @@ class App extends Component {
                 Fantasia
               </div>
             </div>
+            <div className="row">
+              <div className="col-4 movie">
+                <div className="thumbail">
+                  <img src="https://upload.wikimedia.org/wikipedia/en/4/4d/Avengers_Infinity_War_poster.jpg" />
+                </div>
+                <div className="detail">
+                  <span className="title">Avengers Infinity war</span>
+                  <span className="category">Acción, Fantasia</span>
+                  <FontAwesomeIcon color="#ffc000" icon="star" />
+                  <span className="ranked">8,4</span>
+                  <p>
+                    Lorem Ipsum is simply dummy te xt of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.
+                  </p>
+                </div>
+              </div>
+              <div className="col-4 movie">
+                <div className="thumbail">
+                  <img src="https://upload.wikimedia.org/wikipedia/en/4/4d/Avengers_Infinity_War_poster.jpg" />
+                </div>
+                <div className="detail">
+                  <span className="title">Avengers Infinity war</span>
+                  <span className="category">Acción, Fantasia</span>
+                  <FontAwesomeIcon color="#ffc000" icon="star" />
+                  <span className="ranked">8,4</span>
+                  <p>
+                    Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.
+                  </p>
+                </div>
+              </div>
+              <div className="col-4 movie">
+                <div className="thumbail">
+                  <img src="https://upload.wikimedia.org/wikipedia/en/4/4d/Avengers_Infinity_War_poster.jpg" />
+                </div>
+                <div className="detail">
+                  <span className="title">Avengers Infinity war</span>
+                  <span className="category">Acción, Fantasia</span>
+                  <FontAwesomeIcon color="#ffc000" icon="star" />
+                  <span className="ranked">8,4</span>
+                  <p>
+                    Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.
+                  </p>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>

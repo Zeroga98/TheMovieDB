@@ -126,12 +126,45 @@
   padding: 5px 0;
   display: flex;
   margin: 5px 0;
-  .bagde{
+  .bagde {
     border: 1px solid #e5e5e5;
     border-radius: 15px;
     padding: 2px 14px;
     color: #666;
     margin: 0 5px;
     cursor: pointer;
+  }
+}
+
+.movie {
+  display: flex;
+  .thumbail {
+    img {
+      width: 150px;
+    }
+  }
+  .detail {
+    padding: 0 8px;
+    .title {
+      display: block;
+      font-size: 22px;
+    }
+    .category {
+      display: block;
+      cursor: pointer;
+      font-size: 14px;
+      color: #28a745;
+    }
+    p {
+      font-size: 14px;
+      display: block;
+      display: -webkit-box;
+      max-width: 200px;
+      -webkit-line-clamp: 5;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      height: 100px;
+    }
   }
 }
