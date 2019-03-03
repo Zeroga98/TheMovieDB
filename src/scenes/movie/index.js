@@ -47,7 +47,7 @@ class movie extends Component {
           this.setState({ load: false });
         }, 2000) && this.state.load &&
           <div className="d-flex justify-content-center " style={{ margin: '8em' }}>
-            <Loader type="ball-grid-pulse" />
+            <Loader type="ball-grid-pulse"/>
           </div>
         }
         {!this.state.load && movies != undefined && movies.movie != undefined &&

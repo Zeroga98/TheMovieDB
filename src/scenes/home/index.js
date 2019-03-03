@@ -8,7 +8,7 @@ import { getPupularMovies, getDiscoverMovies } from '../../services/movie/action
 import Select from 'react-select';
 import { genres, responsive } from '../../constans/home';
 import { NavLink as RRNavLink, withRouter } from 'react-router-dom';
-
+import Loader from 'react-loaders'
 
 class App extends Component {
   constructor(props) {

@@ -1,12 +1,7 @@
-$primary-color: #333;
-@import 'loaders.css/src/animations/ball-grid-pulse.scss';
-
-.loader-hidden {
-  display: none;
-}
-.loader-active {
-  display: block;
-}
+@import "~bootstrap/scss/functions";
+@import "~bootstrap/scss/variables";
+@import "~bootstrap/scss/mixins";
+@import "~bootstrap/scss/bootstrap.scss";
 
 .banner {
   position: relative;
@@ -113,5 +108,22 @@ $primary-color: #333;
     font-size: 16px;
     font-weight: 100;
     color: #555;
+  }
+}
+@include media-breakpoint-down(md) {
+  .btn-angle{
+    display: block!important;
+  }
+  .movie-detail {
+    margin: 0 auto!important;
+    width: 100%!important;
+  }
+  .banner .info{
+    top: 0;
+    .info-list{
+      span{
+        display: none;
+      }
+    }
   }
 }
