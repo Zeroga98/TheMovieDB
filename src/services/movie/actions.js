@@ -13,13 +13,14 @@ export const getPupularMoviesError = (error) => ({
   type: actions.GET_POPULAR_MOVIES_FAILED,
   error: error
 });
-export const getDiscoverMovies = () => ({
-  type: actions.GET_DISCOVER_MOVIES
+export const getDiscoverMovies = (gender) => ({
+  type: actions.GET_DISCOVER_MOVIES,
+  gender: gender
 });
 
-export const getDiscoverMoviesSuccess = (movies) => ({
+export const getDiscoverMoviesSuccess = (moviesDiscover) => ({
   type: actions.GET_DISCOVER_MOVIES_SUCCESS,
-  movies: movies
+  moviesDiscover: moviesDiscover
 });
 
 export const getDiscoverMoviesError = (error) => ({

@@ -110,7 +110,7 @@
 }
 
 .category-title {
-  margin-top: 2em;
+  margin-top: 1em;
   border-bottom: 1px solid #e5e5e5;
   padding: 10px 0;
   span {
@@ -133,6 +133,7 @@
     color: #666;
     margin: 0 5px;
     cursor: pointer;
+    white-space: nowrap;
   }
 }
 
@@ -145,15 +146,22 @@
   }
   .detail {
     padding: 0 8px;
+    height: 223px;
+    overflow: hidden;
+    text-overflow: ellipsis;
     .title {
       display: block;
       font-size: 22px;
+      line-height: 1;
     }
     .category {
       display: block;
       cursor: pointer;
       font-size: 14px;
       color: #28a745;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      overflow: hidden;
     }
     p {
       font-size: 14px;
@@ -166,5 +174,17 @@
       text-overflow: ellipsis;
       height: 100px;
     }
+  }
+}
+
+.selectedGenre {
+  width: 150px;
+  margin-left: auto;
+  .selectedGenre__control {
+    border-radius: 101px;
+    font-size: 13px;
+    min-height: 18px !important;
+    height: 37px;
+    background: transparent;
   }
 }

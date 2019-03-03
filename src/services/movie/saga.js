@@ -12,13 +12,14 @@ function* fetchMovie() {
   else
     yield put({ type: actions.GET_POPULAR_MOVIES_FAILED, error: data })
 }
-function* fetchDiscoverMovie() {
-  const data = yield fetch(`https://api.themoviedb.org/3/discover/movie?api_key=589b584b5b5bcf417930a5f9c2a8b142&language=es&sort_by=popularity.desc&page=1&with_genres=10402`)
+function* fetchDiscoverMovie(gender) {
+  console.log(gender);
+  const data = yield fetch(`https://api.themoviedb.org/3/discover/movie?api_key=589b584b5b5bcf417930a5f9c2a8b142&language=es&sort_by=popularity.desc&page=1&with_genres=${gender.gender}`)
     .then(response => response.json())
     .catch(error => { return { state: 'ERROR', data: error } });
 
   if (!data.success) 
-    yield put({ type: actions.GET_DISCOVER_MOVIES_SUCCESS, movies: data });
+    yield put({ type: actions.GET_DISCOVER_MOVIES_SUCCESS, moviesDiscover: data });
   else
     yield put({ type: actions.GET_DISCOVER_MOVIES_FAILED, error: data })
 }

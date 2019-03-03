@@ -6,20 +6,52 @@ import './style.scss';
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { connect } from 'react-redux';
-import { getPupularMovies } from '../../services/movie/actions'
+import { getPupularMovies, getDiscoverMovies } from '../../services/movie/actions';
+import Select from 'react-select';
+import { genres, responsive } from '../../constans/home';
 
 class App extends Component {
   constructor(props) {
     super(props);
     this.props.getPupularMovies();
+    this.props.getDiscoverMovies("");
   }
-  responsive = {
-    0: { items: 1 },
-    600: { items: 4 },
-    1024: { items: 5 },
+  state = {
+    selectedOption: null,
+  }
+  handleChange = (selectedOption) => {
+    this.setState({ selectedOption });
+    this.props.getDiscoverMovies(selectedOption.value)
+    console.log(`Option selected:`, selectedOption);
+  }
+
+  found = (item) => {
+    let genre = item.map(data => {
+      genre = genres.find(function (element) {
+        return element.id == data;
+      })
+      return genre;
+    })
+    return genre;
   };
+  selectecdValue = (genres) => {
+    let options = [];
+    options = genres.map(data => {
+      let option = { "label": data.name, "value": data.id };
+      return option;
+    })
+    return options;
+  }
   render() {
     const { movies } = this.props;
+    const scaryAnimals = [
+      { label: "Alligators", value: 1 },
+      { label: "Crocodiles", value: 2 },
+      { label: "Sharks", value: 3 },
+      { label: "Small crocodiles", value: 4 },
+      { label: "Smallest crocodiles", value: 5 },
+      { label: "Snakes", value: 6 },
+    ];
     return (
       <div className="App">
         <Header className="App-header" />
@@ -28,7 +60,7 @@ class App extends Component {
             <AliceCarousel
               dotsDisabled={true}
               buttonsDisabled={true}
-              responsive={this.responsive}
+              responsive={responsive}
               ref={el => this.Carousel = el}>
               {movies.movies.results.map(item => {
                 return (
@@ -39,7 +71,9 @@ class App extends Component {
                     <div className="movie-details">
                       <span>{item.vote_average}/10</span>
                       <h2>{item.title}</h2>
-                      <span>{item.Category}</span>
+                      <span>{this.found(item.genre_ids).map(data => {
+                        return (data.name + ', ')
+                      })}</span>
                     </div>
                   </div>
                 )
@@ -51,65 +85,38 @@ class App extends Component {
           </div>}
 
         <div className="container">
-          <div className="section-category mt-4">
-            <div className="category-title">
-              <FontAwesomeIcon color="#28a745" icon="film" />
-              <span>Categorias</span>
-            </div>
-            <div className="group-bagde">
-              <div className="bagde">
-                Todos
+          <div className="section-category ">
+            <div className="category-title d-flex align-items-center mb-4">
+              <div>
+                <FontAwesomeIcon color="#28a745" icon="film" />
+                <span>Categorias</span>
               </div>
-              <div className="bagde">
-                Acción
-              </div>
-              <div className="bagde">
-                Fantasia
-              </div>
+              <Select className="selectedGenre" value={this.selectedOption} onChange={this.handleChange} options={this.selectecdValue(genres)} placeholder="Todas" />
             </div>
             <div className="row">
-              <div className="col-4 movie">
-                <div className="thumbail">
-                  <img src="https://upload.wikimedia.org/wikipedia/en/4/4d/Avengers_Infinity_War_poster.jpg" />
-                </div>
-                <div className="detail">
-                  <span className="title">Avengers Infinity war</span>
-                  <span className="category">Acción, Fantasia</span>
-                  <FontAwesomeIcon color="#ffc000" icon="star" />
-                  <span className="ranked">8,4</span>
-                  <p>
-                    Lorem Ipsum is simply dummy te xt of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.
-                  </p>
-                </div>
-              </div>
-              <div className="col-4 movie">
-                <div className="thumbail">
-                  <img src="https://upload.wikimedia.org/wikipedia/en/4/4d/Avengers_Infinity_War_poster.jpg" />
-                </div>
-                <div className="detail">
-                  <span className="title">Avengers Infinity war</span>
-                  <span className="category">Acción, Fantasia</span>
-                  <FontAwesomeIcon color="#ffc000" icon="star" />
-                  <span className="ranked">8,4</span>
-                  <p>
-                    Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.
-                  </p>
-                </div>
-              </div>
-              <div className="col-4 movie">
-                <div className="thumbail">
-                  <img src="https://upload.wikimedia.org/wikipedia/en/4/4d/Avengers_Infinity_War_poster.jpg" />
-                </div>
-                <div className="detail">
-                  <span className="title">Avengers Infinity war</span>
-                  <span className="category">Acción, Fantasia</span>
-                  <FontAwesomeIcon color="#ffc000" icon="star" />
-                  <span className="ranked">8,4</span>
-                  <p>
-                    Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.
-                  </p>
-                </div>
-              </div>
+              {movies.moviesDiscover != undefined && movies.moviesDiscover.results != undefined &&
+                movies.moviesDiscover.results.map(item => {
+                  return (
+                    <div key={`key-${item.id}`} className="col-4 movie mb-2">
+                      <div className="thumbail">
+                        <img src={`https://image.tmdb.org/t/p/w300_and_h450_bestv2${item.poster_path}`} />
+                      </div>
+                      <div className="detail">
+                        <span className="title">{item.title}</span>
+                        <span className="category">{this.found(item.genre_ids).map(data => {
+                          return (data.name + ', ')
+                        })}</span>
+                        <FontAwesomeIcon color="#ffc000" icon="star" />
+                        <span className="ranked">{item.vote_average}</span>
+                        <p>
+                          {item.overview}
+                        </p>
+                      </div>
+                    </div>
+                  )
+                }
+                )
+              }
             </div>
           </div>
         </div>
@@ -121,10 +128,12 @@ class App extends Component {
 const mapStateToProps = (state) => {
   return {
     movies: state.movies,
+    moviesDiscover: state.moviesDiscover
   }
 }
 const mapDispatchToProps = {
-  getPupularMovies: getPupularMovies
+  getPupularMovies: getPupularMovies,
+  getDiscoverMovies: getDiscoverMovies
 };
 
 App = connect(
