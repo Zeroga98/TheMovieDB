@@ -6,6 +6,9 @@ A Aplication for  [the movie api](https://developers.themoviedb.org/3/getting-st
 
 In the project directory, you can run:
 
+### `npm install`
+To install all req'd dependencies
+
 ### `npm start`
 
 Runs the app in the development mode.<br>
