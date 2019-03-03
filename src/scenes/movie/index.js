@@ -7,6 +7,7 @@ import { genres, responsiveSimilary } from '../../constans/home';
 import moment from 'moment';
 import 'moment/locale/es';
 import AliceCarousel from 'react-alice-carousel';
+import Loader from 'react-loaders'
 
 class movie extends Component {
 
@@ -15,6 +16,9 @@ class movie extends Component {
     this.props.getMovie(this.props.match.params.id);
     this.props.getRecommendationsMovies(this.props.match.params.id);
     moment.locale('es');
+    this.state = {
+      load: true
+    };
   }
   found = (item) => {
     let genre = item.map(data => {
@@ -34,13 +38,19 @@ class movie extends Component {
     })
     return genre;
   };
+  load = true;
   render() {
     const { movies } = this.props;
-    
-     console.log(this.props.match.params.id) 
     return (
       <div>
-        {movies != undefined && movies.movie != undefined &&
+        {setTimeout(() => {
+          this.setState({ load: false });
+        }, 2000) && this.state.load &&
+          <div className="d-flex justify-content-center " style={{ margin: '8em' }}>
+            <Loader type="ball-grid-pulse" />
+          </div>
+        }
+        {!this.state.load && movies != undefined && movies.movie != undefined &&
           <div>
             <div className="banner">
               <div className="d-flex banner-img">
@@ -79,7 +89,7 @@ class movie extends Component {
                     <FontAwesomeIcon color="#28a745" icon="film" />
                     <span>Similares</span>
                   </div>
-                </div>{movies.recommendationsMovies != undefined && movies.recommendationsMovies.results != undefined &&
+                </div>{!this.state.load && movies.recommendationsMovies != undefined && movies.recommendationsMovies.results != undefined &&
                   <div className="carousel-movie">
                     <AliceCarousel
                       dotsDisabled={true}
@@ -89,10 +99,14 @@ class movie extends Component {
                       {movies.recommendationsMovies.results.map(item => {
                         return (
                           <div key={`key-${item.id}`} className="item-carousel" onClick={() => {
+                            this.setState({ load: true });
                             this.props.history.push(`/movie/${item.id}`)
                             this.props.getMovie(item.id);
                             this.props.getRecommendationsMovies(item.id);
-                            }}>
+                            setTimeout(() => {
+                              this.setState({ load: false });
+                            }, 2000)
+                          }}>
                             <div className="movie-poster">
                               <img src={`https://image.tmdb.org/t/p/w300_and_h450_bestv2${item.poster_path}`} />
                             </div>

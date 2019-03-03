@@ -23,7 +23,6 @@ function* fetchDiscoverMovie(gender) {
     yield put({ type: actions.GET_DISCOVER_MOVIES_FAILED, error: data })
 }
 function* fetchMovieId(movieId) {
-  console.log(movieId);
   const data = yield fetch(`https://api.themoviedb.org/3/movie/${movieId.movieId}?api_key=589b584b5b5bcf417930a5f9c2a8b142&language=es`)
     .then(response => response.json())
     .catch(error => { return { state: 'ERROR', data: error } });
@@ -34,7 +33,6 @@ function* fetchMovieId(movieId) {
     yield put({ type: actions.GET_MOVIE_FAILED, error: data })
 }
 function* fetchRecommendationsMovies(movieId) {
-  console.log(movieId);
   const data = yield fetch(`https://api.themoviedb.org/3/movie/${movieId.movieId}/recommendations?api_key=589b584b5b5bcf417930a5f9c2a8b142&language=en-US&page=1`)
     .then(response => response.json())
     .catch(error => { return { state: 'ERROR', data: error } });

@@ -1,3 +1,13 @@
+$primary-color: #333;
+@import 'loaders.css/src/animations/ball-grid-pulse.scss';
+
+.loader-hidden {
+  display: none;
+}
+.loader-active {
+  display: block;
+}
+
 .banner {
   position: relative;
   .banner-img {
