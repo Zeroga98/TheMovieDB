@@ -45,7 +45,7 @@ class movie extends Component {
       <div>
         {setTimeout(() => {
           this.setState({ load: false });
-        }, 2000) && this.state.load &&
+        }, 1000) && this.state.load &&
           <div className="d-flex justify-content-center " style={{ margin: '8em' }}>
             <Loader type="ball-grid-pulse"/>
           </div>
@@ -105,7 +105,7 @@ class movie extends Component {
                             this.props.getRecommendationsMovies(item.id);
                             setTimeout(() => {
                               this.setState({ load: false });
-                            }, 2000)
+                            }, 1000)
                           }}>
                             <div className="movie-poster">
                               <img src={`https://image.tmdb.org/t/p/w300_and_h450_bestv2${item.poster_path}`} />
