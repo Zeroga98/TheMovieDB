@@ -1,86 +1,133 @@
 import React, { Component } from 'react';
 import './style.scss';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { getMovie } from '../../services/movie/actions';
+import { getMovie, getRecommendationsMovies } from '../../services/movie/actions';
 import { connect } from 'react-redux';
+import { genres, responsiveSimilary } from '../../constans/home';
+import moment from 'moment';
+import 'moment/locale/es';
+import AliceCarousel from 'react-alice-carousel';
 
 class movie extends Component {
 
   constructor(props) {
     super(props);
-    this.props.getMovie(238);
+    this.props.getMovie(this.props.match.params.id);
+    this.props.getRecommendationsMovies(this.props.match.params.id);
+    moment.locale('es');
   }
-
+  found = (item) => {
+    let genre = item.map(data => {
+      genre = genres.find(function (element) {
+        return element.id == data.id;
+      })
+      return genre;
+    })
+    return genre;
+  };
+  foundRe = (item) => {
+    let genre = item.map(data => {
+      genre = genres.find(function (element) {
+        return element.id == data;
+      })
+      return genre;
+    })
+    return genre;
+  };
   render() {
+    const { movies } = this.props;
+    
+     console.log(this.props.match.params.id) 
     return (
       <div>
-        <div className="banner">
-          <div className="d-flex banner-img">
-            <img src="https://image.tmdb.org/t/p/w300_and_h450_bestv2/iaiy3tg9QVkDpObm1IGqmbC9A5C.jpg" />
-          </div>
-          <div className="info">
-            <div className="d-flex flex-column info-list">
-              <img src="https://image.tmdb.org/t/p/w300_and_h450_bestv2/iaiy3tg9QVkDpObm1IGqmbC9A5C.jpg" />
-              <span style={{ fontSize: '22px' }}>Información:</span>
-              <span>Año: 2018</span>
-              <span>Generos: Acción, Drama</span>
-              <span>Una oferta que no podrás rechazar</span>
-            </div>
-            <div className="detail d-flex flex-column mt-5 ml-4">
-              <span className="title">Your name</span>
-              <span className="genered">Accion, Drama</span>
-              <span className="ranked">9</span>
-            </div>
-          </div>
-        </div>
-        <div className="container movie-detail ">
-          <div className="title">
-            <FontAwesomeIcon icon="book-open" />
-            <span>Descripción</span>
-          </div>
+        {movies != undefined && movies.movie != undefined &&
           <div>
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.
-              Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem.</p>
-          </div>
-          <div className="section-category ">
-            <div className="category-title d-flex align-items-center mb-4">
+            <div className="banner">
+              <div className="d-flex banner-img">
+                <img src={`https://image.tmdb.org/t/p/w600_and_h900_bestv2${movies.movie.backdrop_path}`} />
+              </div>
+              <div className="info">
+                <div className="d-flex flex-column info-list">
+                  <img src={`https://image.tmdb.org/t/p/w300_and_h450_bestv2${movies.movie.backdrop_path}`} />
+                  <span style={{ fontSize: '22px' }}>Información:</span>
+                  <span>Año: {moment(movies.movie.release_date).format('LL')}</span>
+                  <span>Generos: {this.found(movies.movie.genres).map(data => {
+                    return (data.name + ", ")
+                  })} </span>
+                  <span>{movies.movie.tagline}</span>
+                </div>
+                <div className="detail d-flex flex-column mt-5 ml-4">
+                  <span className="title">{movies.movie.title}</span>
+                  <span className="genered">{this.found(movies.movie.genres).map(data => {
+                    return (data.name + ", ")
+                  })}</span>
+                  <span className="ranked">{movies.movie.vote_average}</span>
+                </div>
+              </div>
+            </div>
+            <div className="container movie-detail ">
+              <div className="title">
+                <FontAwesomeIcon icon="book-open" />
+                <span>Descripción</span>
+              </div>
               <div>
-                <FontAwesomeIcon color="#28a745" icon="film" />
-                <span>Similares</span>
+                <p>{movies.movie.overview}</p>
               </div>
-            </div>
-            <div className="row">
-              <div className="col-lg-4 col-md-6 col-md-12 movie mb-2">
-                <div className="thumbail">
-                  <img src="https://image.tmdb.org/t/p/w300_and_h450_bestv2/iaiy3tg9QVkDpObm1IGqmbC9A5C.jpg" />
-                </div>
-                <div className="detail">
-                  <span className="title">Your name</span>
-                  <span className="category">
-                    Animación, Ficción
-                  </span>
-                  <FontAwesomeIcon color="#ffc000" icon="star" />
-                  <span className="ranked">9</span>
-                  <p>
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem.
-                  </p>
-                </div>
+              <div className="section-category ">
+                <div className="category-title d-flex align-items-center mb-4">
+                  <div>
+                    <FontAwesomeIcon color="#28a745" icon="film" />
+                    <span>Similares</span>
+                  </div>
+                </div>{movies.recommendationsMovies != undefined && movies.recommendationsMovies.results != undefined &&
+                  <div className="carousel-movie">
+                    <AliceCarousel
+                      dotsDisabled={true}
+                      buttonsDisabled={true}
+                      responsive={responsiveSimilary}
+                      ref={el => this.Carousel = el}>
+                      {movies.recommendationsMovies.results.map(item => {
+                        return (
+                          <div key={`key-${item.id}`} className="item-carousel" onClick={() => {
+                            this.props.history.push(`/movie/${item.id}`)
+                            this.props.getMovie(item.id);
+                            this.props.getRecommendationsMovies(item.id);
+                            }}>
+                            <div className="movie-poster">
+                              <img src={`https://image.tmdb.org/t/p/w300_and_h450_bestv2${item.poster_path}`} />
+                            </div>
+                            <div className="movie-details">
+                              <span>{item.vote_average}/10</span>
+                              <h2>{item.title}</h2>
+                              <span>{this.foundRe(item.genre_ids).map(data => {
+                                return (data.name + ', ')
+                              })}</span>
+                            </div>
+                          </div>
+                        )
+                      })
+                      }
+                    </AliceCarousel>
+                    <button className="btn-angle btn-angle--left" onClick={() => this.Carousel._slidePrev()}><FontAwesomeIcon icon="angle-left" /></button>
+                    <button className="btn-angle btn-angle--right" onClick={() => this.Carousel._slideNext()}><FontAwesomeIcon icon="angle-right" /></button>
+                  </div>
+                }
               </div>
             </div>
           </div>
-        </div>
-
+        }
       </div>
     );
   }
 }
 const mapStateToProps = (state) => {
   return {
-    movie: state.movie,
+    movies: state.movies
   }
 }
 const mapDispatchToProps = {
   getMovie: getMovie,
+  getRecommendationsMovies: getRecommendationsMovies
 };
 
 movie = connect(

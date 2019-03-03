@@ -34,9 +34,15 @@
     z-index: 2;
     margin: 0 10%;
     .info-list{
+      text-overflow: ellipsis;
+      width: 263px;
+      overflow: hidden;
       span{
         font-weight: 100;
         font-family: 'Montserrat', sans-serif;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
       }
     }
     img {

@@ -29,15 +29,27 @@ function* fetchMovieId(movieId) {
     .catch(error => { return { state: 'ERROR', data: error } });
 
   if (!data.success) 
-    yield put({ type: actions.GET_MOVIE_SUCCESS, moviesDiscover: data });
+    yield put({ type: actions.GET_MOVIE_SUCCESS, movie: data });
   else
     yield put({ type: actions.GET_MOVIE_FAILED, error: data })
+}
+function* fetchRecommendationsMovies(movieId) {
+  console.log(movieId);
+  const data = yield fetch(`https://api.themoviedb.org/3/movie/${movieId.movieId}/recommendations?api_key=589b584b5b5bcf417930a5f9c2a8b142&language=en-US&page=1`)
+    .then(response => response.json())
+    .catch(error => { return { state: 'ERROR', data: error } });
+
+  if (!data.success) 
+    yield put({ type: actions.GET_RECOMMENDATIONS_MOVIES_SUCCESS, recommendationsMovies: data });
+  else
+    yield put({ type: actions.GET_RECOMMENDATIONS_MOVIES_FAILED, error: data })
 }
 
 function* ActionWatcher() {
   yield takeLatest(actions.GET_POPULAR_MOVIES, fetchMovie)
   yield takeLatest(actions.GET_MOVIE, fetchMovieId)
   yield takeLatest(actions.GET_DISCOVER_MOVIES, fetchDiscoverMovie)
+  yield takeLatest(actions.GET_RECOMMENDATIONS_MOVIES, fetchRecommendationsMovies)
 }
 
 

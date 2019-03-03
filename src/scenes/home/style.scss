@@ -140,6 +140,7 @@
 .movie {
   display: flex;
   .thumbail {
+    cursor: pointer;
     img {
       width: 150px;
     }
@@ -153,6 +154,7 @@
       display: block;
       font-size: 22px;
       line-height: 1;
+      cursor: pointer;
     }
     .category {
       display: block;

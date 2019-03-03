@@ -15,10 +15,16 @@ const reducerMovies = (state = {}, action) => {
     case actions.GET_DISCOVER_MOVIES_FAILED:
       return { ...state, getPopularMovies: false, error: action.error };
     case actions.GET_MOVIE:
-      return { ...state, loading: true };
+      return { ...state, loading: true, movie: undefined };
     case actions.GET_MOVIE_SUCCESS:
       return { ...state, loading: false, movie: action.movie };
     case actions.GET_MOVIE_FAILED:
+      return { ...state, loading: false, error: action.error };
+    case actions.GET_RECOMMENDATIONS_MOVIES:
+      return { ...state, loading: true };
+    case actions.GET_RECOMMENDATIONS_MOVIES_SUCCESS:
+      return { ...state, loading: false, recommendationsMovies: action.recommendationsMovies };
+    case actions.GET_RECOMMENDATIONS_MOVIES_FAILED:
       return { ...state, loading: false, error: action.error };
     default:
       return state;

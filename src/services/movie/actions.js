@@ -41,3 +41,17 @@ export const getMovieError = (error) => ({
   type: actions.GET_MOVIE_FAILED,
   error: error
 });
+export const getRecommendationsMovies = (movieId) => ({
+  type: actions.GET_RECOMMENDATIONS_MOVIES,
+  movieId: movieId
+});
+
+export const getRecommendationsMoviesSuccess = (recommendationsMovies) => ({
+  type: actions.GET_RECOMMENDATIONS_MOVIES_SUCCESS,
+  recommendationsMovies: recommendationsMovies
+});
+
+export const getRecommendationsMoviesError = (error) => ({
+  type: actions.GET_RECOMMENDATIONS_MOVIES_FAILED,
+  error: error
+});

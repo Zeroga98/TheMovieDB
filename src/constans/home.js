@@ -86,4 +86,10 @@ const responsive = {
   1024: { items: 5 },
   1920: { items: 8 }
 };
-export { genres, responsive} 
+const responsiveSimilary = {
+  0: { items: 1 },
+  600: { items: 4 },
+  1024: { items: 4 },
+  1920: { items: 4 }
+};
+export { genres, responsive, responsiveSimilary} 

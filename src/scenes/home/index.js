@@ -89,11 +89,11 @@ class App extends Component {
                 movies.moviesDiscover.results.map(item => {
                   return (
                     <div key={`key-${item.id}`} className="col-lg-4 col-md-6 col-md-12 movie mb-2">
-                      <div className="thumbail">
+                      <div className="thumbail" onClick={()=>this.props.history.push(`/movie/${item.id}`)}>
                         <img src={`https://image.tmdb.org/t/p/w300_and_h450_bestv2${item.poster_path}`} />
                       </div>
                       <div className="detail">
-                        <span className="title">{item.title}</span>
+                        <span className="title" onClick={()=>this.props.history.push(`/movie/${item.id}`)}>{item.title}</span>
                         <span className="category">{this.found(item.genre_ids).map(data => {
                           return (data.name + ', ')
                         })}</span>
