@@ -1,14 +1,14 @@
 import React, { Component } from 'react';
-import Header from '../../components/header'
 import AliceCarousel from 'react-alice-carousel';
 import "react-alice-carousel/lib/alice-carousel.css";
 import './style.scss';
-import { library } from '@fortawesome/fontawesome-svg-core'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { connect } from 'react-redux';
 import { getPupularMovies, getDiscoverMovies } from '../../services/movie/actions';
 import Select from 'react-select';
 import { genres, responsive } from '../../constans/home';
+import { NavLink as RRNavLink, withRouter } from 'react-router-dom';
+
 
 class App extends Component {
   constructor(props) {
@@ -44,17 +44,8 @@ class App extends Component {
   }
   render() {
     const { movies } = this.props;
-    const scaryAnimals = [
-      { label: "Alligators", value: 1 },
-      { label: "Crocodiles", value: 2 },
-      { label: "Sharks", value: 3 },
-      { label: "Small crocodiles", value: 4 },
-      { label: "Smallest crocodiles", value: 5 },
-      { label: "Snakes", value: 6 },
-    ];
     return (
       <div className="App">
-        <Header className="App-header" />
         {movies.movies != undefined && movies.movies.results != undefined &&
           <div className="carousel-movie">
             <AliceCarousel
@@ -64,7 +55,7 @@ class App extends Component {
               ref={el => this.Carousel = el}>
               {movies.movies.results.map(item => {
                 return (
-                  <div key={`key-${item.id}`} className="item-carousel" >
+                  <div key={`key-${item.id}`} className="item-carousel" onClick={()=>this.props.history.push(`/movie/${item.id}`)}>
                     <div className="movie-poster">
                       <img src={`https://image.tmdb.org/t/p/w300_and_h450_bestv2${item.poster_path}`} />
                     </div>
@@ -97,7 +88,7 @@ class App extends Component {
               {movies.moviesDiscover != undefined && movies.moviesDiscover.results != undefined &&
                 movies.moviesDiscover.results.map(item => {
                   return (
-                    <div key={`key-${item.id}`} className="col-4 movie mb-2">
+                    <div key={`key-${item.id}`} className="col-lg-4 col-md-6 col-md-12 movie mb-2">
                       <div className="thumbail">
                         <img src={`https://image.tmdb.org/t/p/w300_and_h450_bestv2${item.poster_path}`} />
                       </div>
@@ -136,10 +127,10 @@ const mapDispatchToProps = {
   getDiscoverMovies: getDiscoverMovies
 };
 
-App = connect(
+App = withRouter(connect(
   mapStateToProps,
   mapDispatchToProps,
-)(App);
+)(App));
 
 
 export default App;

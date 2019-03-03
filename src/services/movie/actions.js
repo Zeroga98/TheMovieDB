@@ -27,3 +27,17 @@ export const getDiscoverMoviesError = (error) => ({
   type: actions.GET_DISCOVER_MOVIES_FAILED,
   error: error
 });
+export const getMovie = (movieId) => ({
+  type: actions.GET_MOVIE,
+  movieId: movieId
+});
+
+export const getMovieSuccess = (movie) => ({
+  type: actions.GET_MOVIE_SUCCESS,
+  movie: movie
+});
+
+export const getMovieError = (error) => ({
+  type: actions.GET_MOVIE_FAILED,
+  error: error
+});

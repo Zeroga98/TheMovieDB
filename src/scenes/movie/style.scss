@@ -1,0 +1,101 @@
+.banner {
+  position: relative;
+  .banner-img {
+    height: 400px;
+    background: #292929;
+    img {
+      width: 100%;
+      object-position: 0px calc(60%);
+      object-fit: cover;
+      opacity: .5;
+      filter: blur(4px);
+    }
+    &:before {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 1;
+      -webkit-background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0) 50%, #000 100%);
+      background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0) 50%, #000 100%);
+      transition: all .3s;
+      -webkit-transition: all .3s;
+    }
+  }
+  .info {
+    position: absolute;
+    top: 40%;
+    width: 100%;
+    display: -webkit-flex;
+    display: flex;
+    width: 90%;
+    z-index: 2;
+    margin: 0 10%;
+    .info-list{
+      span{
+        font-weight: 100;
+        font-family: 'Montserrat', sans-serif;
+      }
+    }
+    img {
+      width: 263px;
+      height: 400px;
+    }
+    .detail {
+      .title {
+        color: #fff;
+        font-size: 32px;
+        font-family: 'Montserrat', sans-serif;
+        font-weight: 100;
+      }
+      .genered {
+        color: #fff;
+        font-size: 16px;
+        font-family: 'Montserrat', sans-serif;
+        font-weight: 100;
+        margin: 15px 0;
+      }
+      .ranked {
+        color: #fff;
+        font-size: 18px;
+        font-family: 'Montserrat', sans-serif;
+        font-weight: 100;
+        border: 2px solid #fff;
+        border-radius: 100%;
+        width: 50px;
+        height: 50px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+    }
+  }
+}
+
+.movie-detail {
+  padding: 10px 27px !important;
+  margin-left: calc(10% + 263px) !important;
+  width: calc(90% - 263px) !important;
+  .title {
+    vertical-align: middle;
+    margin: 12px 0;
+    svg {
+      color: #0072bc;
+      vertical-align: middle;
+    }
+    span {
+      font-size: 24px;
+      font-family: 'Monstserra', sans-serif;
+      vertical-align: middle;
+      margin-left: 5px;
+      font-weight: 100;
+    }
+  }
+  p {
+    font-size: 16px;
+    font-weight: 100;
+    color: #555;
+  }
+}
